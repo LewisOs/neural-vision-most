@@ -104,7 +104,7 @@ def cnn_model_fn(features, labels, mode, params):
                 units=layer['units'],
                 activation=layer['activation'])
 
-    # Add dropout operation; 0.6 probability that element will be kept 
+    # dropout operation
         net = tf.layers.dropout(
                 inputs=net,
                 rate=layer['rate'],
@@ -266,9 +266,9 @@ def ram_model_fn(features, labels, mode, params):
 
     # TODO: initial loc as a separate network?
     # -- locs: [None, loc_dim]
-    locs = tf.random_uniform(
-        [batch_size, params['loc_dim']],
-        minval=-1., maxval=1.)
+    locs = tf.zeros(
+            shape=[1,2],
+            dtype=int32)
 
     # set up the main loop, for sampling locations and extracting glimpses
     is_training = mode == tf.estimator.ModeKeys.TRAIN
